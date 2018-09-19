@@ -8,8 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    // 写真を表示するするView（todo:あとで作る）
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,13 +23,25 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func ImageSelect{
-        ImagePickerManager().pickImage(self){ image in
-            //here is the image
+    // 画像の選択
+    @IBAction func ImageSelect () {
+        // フォトライブラリーに対するアクセス権限があれば処理する
+        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)){
+            let pickerView = UIImagePickerController()
+            pickerView.sourceType = .photoLibrary
+            pickerView.delegate = self
+            self.present(pickerView, animated:true)
         }
     }
     
-    func ImagrTransfer{
+    // 写真が選択されたら呼ばれる
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.imageView.image = image
+        self.dismiss(animated: true)
+    }
+    
+    func ImagrTransfer () {
         
     }
 
