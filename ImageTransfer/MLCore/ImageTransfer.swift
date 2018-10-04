@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import CoreML
 
 class ImageTransfer: NSObject {
     
+    // image 呼びこみ
+    // CIImageに変換
+    
+    // model定義
     func transferImage(image: CIImage){
         guard let model = try? VNCoreMLModel(for: XX.model) else {
             fatalError("can't load Places ML model")
@@ -18,6 +23,8 @@ class ImageTransfer: NSObject {
     // Create a Vision request with completion handler
     let request = VNCoreMLRequest(model: model) { [weak self] request, error in
         }
+    
+    //
 }
 
 
