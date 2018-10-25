@@ -10,9 +10,12 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    // 写真を表示するするView（todo:あとで作る）
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var originalImageView: UIImageView!
+    @IBOutlet weak var referenceImageView: UIImageView!
+    @IBOutlet weak var resultImageView: UIImageView!
     
+    var uiImageViewToSet = UIImageView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,27 +26,41 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
 
-    // 画像の選択
-    @IBAction func ImageSelect () {
-        // フォトライブラリーに対するアクセス権限があれば処理する
-        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)){
-            let pickerView = UIImagePickerController()
-            pickerView.sourceType = .photoLibrary
-            pickerView.delegate = self
-            self.present(pickerView, animated:true)
-        }
-    }
-    
-    // 写真が選択されたら呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        self.imageView.image = image
-        self.dismiss(animated: true)
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            if(uiImageViewToSet != nil){
+                self.uiImageViewToSet.contentMode = .scaleAspectFit
+                self.uiImageViewToSet.image = pickedImage
+            }
+        }
+        picker.dismiss(animated: true, completion: {
+            guard let uiImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+                else { fatalError("no image from image picker") }
+        })
+        
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
     func ImagrTransfer () {
         
     }
 
+    @IBAction func chooseOriginalImage(_ sender: Any) {
+        let c = UIImagePickerController()
+        c.delegate = self
+        uiImageViewToSet = originalImageView
+        present(c, animated: true)
+    }
+    @IBAction func chooseReferenceImage(_ sender: Any) {
+        let c = UIImagePickerController()
+        c.delegate = self
+        uiImageViewToSet = referenceImageView
+        present(c, animated: true)
+    }
+    @IBAction func transferImage(_ sender: Any) {
+    }
+    
 }
 
