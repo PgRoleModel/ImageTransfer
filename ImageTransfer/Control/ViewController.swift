@@ -43,8 +43,44 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func ImagrTransfer () {
+    func ImageTransfer (image: UIImage?) -> UIImage? {
+        return image
+    }
+    
+    func pixelBuffer(from image:UIImage) -> CVPixelBuffer? {
+        // 1
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 256, height: 256), true, 2.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: 256, height: 256))
+        _ = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
         
+        // 2
+        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+        var pixelBuffer : CVPixelBuffer?
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, 256, 256, kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
+        guard (status == kCVReturnSuccess) else {
+            return nil
+        }
+        
+        // 3
+        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
+        
+        // 4
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(data: pixelData, width: 256, height: 256, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        
+        // 5
+        context?.translateBy(x: 0, y: 256)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        
+        // 6
+        UIGraphicsPushContext(context!)
+        image.draw(in: CGRect(x: 0, y: 0, width: 256, height: 256))
+        UIGraphicsPopContext()
+        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        
+        return pixelBuffer
     }
 
     @IBAction func chooseOriginalImage(_ sender: Any) {
@@ -60,6 +96,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(c, animated: true)
     }
     @IBAction func transferImage(_ sender: Any) {
+        let originalImage = originalImageView.image
+        let transferedImage = ImageTransfer(image: originalImage)
+        self.resultImageView.image = transferedImage
     }
     
 }

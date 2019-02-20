@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import ImageTransfer
+//@testable import ImageTransfer
 
 class ImageTransferTests: XCTestCase {
     

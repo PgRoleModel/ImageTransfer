@@ -11,8 +11,11 @@ import Foundation
 // use this class to get photo from the gralley
 
 class ImagePickerManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        
     }
     
     func openCamera(){
