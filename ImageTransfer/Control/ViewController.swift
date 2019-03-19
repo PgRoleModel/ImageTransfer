@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreML
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -43,8 +44,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func ImageTransfer (image: UIImage?) -> UIImage? {
-        return image
+    func ImageTransfer (orgImage: UIImage?) -> UIImage? {
+        let model = TeiStyle1()
+        
+        
+        let styleArray = try? MLMultiArray(shape: [1] as [NSNumber], dataType: .double)
+        styleArray?[0] = 1.0
+        if orgImage == nil{
+            return orgImage
+        }
+        var retImage = orgImage
+        if let image = pixelBuffer(from: orgImage!) {
+            do {
+                let predictionOutput = try model.prediction(image: image, index: styleArray!)
+                
+                let ciImage = CIImage(cvPixelBuffer: predictionOutput.stylizedImage)
+                let tempContext = CIContext(options: nil)
+                let tempImage = tempContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(predictionOutput.stylizedImage), height: CVPixelBufferGetHeight(predictionOutput.stylizedImage)))
+                retImage = UIImage(cgImage: tempImage!)
+            } catch let error as NSError {
+                print("CoreML Model Error: \(error)")
+            }
+        }
+        return retImage
     }
     
     func pixelBuffer(from image:UIImage) -> CVPixelBuffer? {
@@ -97,7 +119,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     @IBAction func transferImage(_ sender: Any) {
         let originalImage = originalImageView.image
-        let transferedImage = ImageTransfer(image: originalImage)
+        let transferedImage = ImageTransfer(orgImage: originalImage)
         self.resultImageView.image = transferedImage
     }
     

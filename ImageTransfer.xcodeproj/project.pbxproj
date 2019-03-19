@@ -16,6 +16,9 @@
 		24A86E31214F782900F649A2 /* ImageTransferUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A86E30214F782900F649A2 /* ImageTransferUITests.swift */; };
 		24A86E44214F7A0F00F649A2 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A86E43214F7A0F00F649A2 /* ImagePickerManager.swift */; };
 		24A86E46214F7E5600F649A2 /* ImageTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A86E45214F7E5600F649A2 /* ImageTransfer.swift */; };
+		E8F35470221ED12E0093F8D2 /* TeiStyle1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E8F3546F221ED12E0093F8D2 /* TeiStyle1.mlmodel */; };
+		E8F35473221ED1390093F8D2 /* TeiStyle2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E8F35471221ED1390093F8D2 /* TeiStyle2.mlmodel */; };
+		E8F35474221ED1390093F8D2 /* TeiStyle3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E8F35472221ED1390093F8D2 /* TeiStyle3.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		24A86E32214F782900F649A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24A86E43214F7A0F00F649A2 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		24A86E45214F7E5600F649A2 /* ImageTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTransfer.swift; sourceTree = "<group>"; };
+		E8F3546F221ED12E0093F8D2 /* TeiStyle1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TeiStyle1.mlmodel; sourceTree = "<group>"; };
+		E8F35471221ED1390093F8D2 /* TeiStyle2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TeiStyle2.mlmodel; sourceTree = "<group>"; };
+		E8F35472221ED1390093F8D2 /* TeiStyle3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TeiStyle3.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +157,9 @@
 			isa = PBXGroup;
 			children = (
 				24A86E12214F782500F649A2 /* ViewController.swift */,
+				E8F35471221ED1390093F8D2 /* TeiStyle2.mlmodel */,
+				E8F35472221ED1390093F8D2 /* TeiStyle3.mlmodel */,
+				E8F3546F221ED12E0093F8D2 /* TeiStyle1.mlmodel */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -287,8 +296,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				24A86E13214F782500F649A2 /* ViewController.swift in Sources */,
+				E8F35473221ED1390093F8D2 /* TeiStyle2.mlmodel in Sources */,
 				24A86E11214F782500F649A2 /* AppDelegate.swift in Sources */,
+				E8F35470221ED12E0093F8D2 /* TeiStyle1.mlmodel in Sources */,
 				24A86E46214F7E5600F649A2 /* ImageTransfer.swift in Sources */,
+				E8F35474221ED1390093F8D2 /* TeiStyle3.mlmodel in Sources */,
 				24A86E44214F7A0F00F649A2 /* ImagePickerManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +476,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ImageTransfer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -481,6 +494,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ImageTransfer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
